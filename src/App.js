@@ -1,5 +1,4 @@
 import logo from './PennStateSoft-logos.jpeg';
-import './App.css';
 
 function App() {
   return (
