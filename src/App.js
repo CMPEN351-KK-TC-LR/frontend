@@ -1,30 +1,32 @@
-import Navbar from './Navbar';
-import AdminMeetings from './AdminMeetings';
-import Home from './Home';
-import Login from './Login';
-import Register from './Register';
-import MainMenu from './MainMenu';
-import AdminComplaints from './AdminComplaints'
-import AdminMeetings from './AdminMeetings';
-import Profile from './Profile';
-import ChangePassword from './ChangePassword';
-import UpdateBilling from './UpdateBilling';
-import CreateAdmin from './CreateAdmin';
-import FileComplaint from './FileComplaint';
-import ManageRooms from './ManageRooms';
-import ManageUsers from './ManageUser';
-import Meetings from './Meetings';
-import ReplyComplaint from './ReplyComplaint';
+import CustomNavbar from './CustomNavbar';
+import {Router, Route, Switch} from 'react-router-dom';
+// import AdminMeetings from './AdminMeetings';
+// import Home from './Home';
+// import Login from './Login';
+// import Register from './Register';
+// import MainMenu from './MainMenu';
+// import AdminComplaints from './AdminComplaints';
+// import Profile from './Profile';
+// import ChangePassword from './ChangePassword';
+// import UpdateBilling from './UpdateBilling';
+// import CreateAdmin from './CreateAdmin';
+// import FileComplaint from './FileComplaint';
+// import ManageRooms from './ManageRooms';
+// import ManageUsers from './ManageUser';
+// import Meetings from './Meetings';
+// import ReplyComplaint from './ReplyComplaint';
 
 function App() {
   return (
     // Surround all App code in Router
     // So we can perform page fetching properly and routing
-    <Router>
-      <div className="App">
-        <Navbar/>
-        <div className="content">
-          <Switch>
+
+    <CustomNavbar/>
+    // <Router>
+      // <div className="App">
+        
+      //   <div className="content">
+          /* <Switch>
             <Route exact path="/">
               <Home/>
             </Route>
@@ -70,10 +72,10 @@ function App() {
             <Route path='/reply-complaint'>
               <ReplyComplaint></ReplyComplaint>
             </Route>
-          </Switch>
-        </div>
-      </div>
-    </Router>
+          </Switch> 
+          </Router> */
+      //   </div>
+      // </div>
   );
 }
 
