@@ -1,5 +1,5 @@
 const UpdateBilling = () => {
-    return (  );
+    return ( null );
 }
  
 export default UpdateBilling;

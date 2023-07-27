@@ -1,5 +1,5 @@
 const ReplyComplaint = () => {
-    return (  );
+    return ( null );
 }
  
 export default ReplyComplaint;

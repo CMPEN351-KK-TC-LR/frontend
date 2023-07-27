@@ -1,5 +1,5 @@
 const AdminMeetings = () => {
-    return (  );
+    return ( null );
 }
  
 export default AdminMeetings;

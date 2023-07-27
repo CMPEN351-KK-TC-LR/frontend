@@ -1,5 +1,5 @@
 const CreateAdmin = () => {
-    return (  );
+    return ( null );
 }
  
 export default CreateAdmin;

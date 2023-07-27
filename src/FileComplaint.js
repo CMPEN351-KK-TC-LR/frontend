@@ -1,5 +1,5 @@
 const FileComplaint = () => {
-    return (  );
+    return ( null );
 }
  
 export default FileComplaint;

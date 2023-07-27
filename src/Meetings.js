@@ -1,5 +1,5 @@
 const Meetings = () => {
-    return (  );
+    return ( null );
 }
  
 export default Meetings;

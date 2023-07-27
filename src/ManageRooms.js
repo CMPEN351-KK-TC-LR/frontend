@@ -1,5 +1,5 @@
 const ManageRooms = () => {
-    return (  );
+    return ( null );
 }
  
 export default ManageRooms;

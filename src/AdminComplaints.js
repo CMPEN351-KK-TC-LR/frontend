@@ -1,5 +1,5 @@
 const AdminViewComplaints = () => {
-    return (  );
+    return ( null );
 }
  
 export default AdminViewComplaints;
