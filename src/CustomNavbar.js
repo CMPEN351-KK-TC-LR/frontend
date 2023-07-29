@@ -14,6 +14,9 @@ const CustomNavbar = () => {
                 <Nav className='me-auto'>
                     <Nav.Link href="/">Home</Nav.Link>
                 </Nav>
+                <Nav className='me-auto'>
+                    <Nav.Link href="/profile">Profile</Nav.Link>
+                </Nav>
             </Container>
         </Navbar>
      );
