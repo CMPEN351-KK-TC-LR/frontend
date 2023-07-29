@@ -26,7 +26,6 @@ function App() {
                 <Route path="/login" component={Login}/>
                 <Route path="/register" component={Register}/>
                 {/* Regular User routes */}
-                <Route path='/home' component={MainMenu}/>
                 <Route path='/profile' component={Profile}/>
                 <Route path='/change-password' component={ChangePassword}/>
                 <Route path='/update-billing' component={UpdateBilling}/>
