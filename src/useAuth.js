@@ -5,7 +5,7 @@ const useAuth = () => {
     const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
-        fetch('/api/users/currentUser')
+        fetch('/api/users/user-info')
             .then(response => {
                 if (response.ok) {
                     return response.json();
