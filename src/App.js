@@ -1,5 +1,5 @@
 import CustomNavbar from './CustomNavbar';
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AdminMeetings from './AdminMeetings';
 import Home from './Home';
 import Login from './Login';
@@ -15,7 +15,6 @@ import ManageRooms from './ManageRooms';
 import ManageUsers from './ManageUsers';
 import Meetings from './Meetings';
 import ReplyComplaint from './ReplyComplaint';
-import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom';
 
 function App() {
     return (
