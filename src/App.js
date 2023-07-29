@@ -1,5 +1,5 @@
 import CustomNavbar from './CustomNavbar';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import AdminMeetings from './AdminMeetings';
 import Home from './Home';
 import Login from './Login';
@@ -15,10 +15,11 @@ import ManageRooms from './ManageRooms';
 import ManageUsers from './ManageUsers';
 import Meetings from './Meetings';
 import ReplyComplaint from './ReplyComplaint';
+import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom';
 
 function App() {
     return (
-        <Router>
+        <BrowserRouter>
             <CustomNavbar />
             <div className="App">
                 <div className="content">
@@ -71,7 +72,7 @@ function App() {
                     </Switch>
                 </div>
             </div>
-        </Router>
+        </BrowserRouter>
     );
 }
 
