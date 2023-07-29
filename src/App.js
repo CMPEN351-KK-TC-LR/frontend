@@ -1,5 +1,5 @@
 import CustomNavbar from './CustomNavbar';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import AdminMeetings from './AdminMeetings';
 import Home from './Home';
 import Login from './Login';
@@ -23,51 +23,27 @@ function App() {
             <div className="App">
                 <div className="content">
                     <Switch>
-                        <Route exact path="/">
-                            <Home />
-                        </Route>
-                        <Route path="/login">
-                            <Login />
-                        </Route>
-                        <Route path="/register">
-                            <Register />
-                        </Route>
-                        <Route path='/home'>
-                            <MainMenu />
-                        </Route>
-                        <Route path='/admin-complaints'>
-                            <AdminComplaints />
-                        </Route>
-                        <Route path='/admin-meetings'>
-                            <AdminMeetings />
-                        </Route>
-                        <Route path='/profile'>
-                            <Profile />
-                        </Route>
-                        <Route path='/change-password'>
-                            <ChangePassword />
-                        </Route>
-                        <Route path='/update-billing'>
-                            <UpdateBilling />
-                        </Route>
-                        <Route path='/create-admin'>
-                            <CreateAdmin />
-                        </Route>
-                        <Route path='/file-complaint'>
-                            <FileComplaint />
-                        </Route>
-                        <Route path='/manage-rooms'>
-                            <ManageRooms />
-                        </Route>
-                        <Route path='/manage-users'>
-                            <ManageUsers />
-                        </Route>
-                        <Route path='/meetings'>
-                            <Meetings />
-                        </Route>
-                        <Route path='/reply-complaint'>
-                            <ReplyComplaint />
-                        </Route>
+                        {/* Only public routes */}
+                        <Route exact path="/" component={Home}/>
+                        <Route path="/login" component={Login}/>
+                        <Route path="/register" component={Register}/>
+                        {/* Regular User routes */}
+                        <Route path='/home' component={MainMenu}/>
+                        <Route path='/profile' component={Profile}/>
+                        <Route path='/change-password' component={ChangePassword}/>
+                        <Route path='/update-billing' component={UpdateBilling}/>
+                        <Route path='/file-complaint' component={FileComplaint}/>
+                        {/* Below route is shared from User to Admin */}
+                        <Route path='/meetings' component={Meetings}/>
+                        {/* Admin routes */}
+                        <Route path='/admin-complaints' component={AdminComplaints}/>
+                        <Route path='/admin-meetings' component={AdminMeetings}/>
+                        <Route path='/create-admin' component={CreateAdmin}/>
+                        <Route path='/manage-rooms' component={ManageRooms}/>
+                        <Route path='/manage-users' component={ManageUsers}/>
+                        <Route path='/reply-complaint' component={ReplyComplaint}/>
+                        {/* Redirect to Home if no other paths match */}
+                        <Redirect to='/'/>
                     </Switch>
                 </div>
             </div>
