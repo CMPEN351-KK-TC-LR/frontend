@@ -6,7 +6,7 @@ const Login = () => {
     // How to validate the input on front end
     const formSchema = Yup.object({
         email: Yup.string()
-          .max(30, 'invalid email')
+          .max(50, 'invalid email')
           // pattern required for valid email
           .matches(/^[a-zA-Z]+.[a-zA-Z]+@pennstatesoft.com$/)
           .required('Required'),
