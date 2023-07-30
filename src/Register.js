@@ -1,4 +1,4 @@
-import { Container, Form, InputGroup, Button } from 'react-bootstrap'
+import { Container, Form, Button } from 'react-bootstrap'
 import { Formik } from 'formik' // for form validation
 import * as Yup from 'yup'
 
@@ -62,7 +62,7 @@ const Register = () => {
             }}
             onSubmit={console.log}
         >
-            {({ handleSubmit, handleChange, values, touched, errors }) => (
+            {({ handleSubmit, handleChange, values, errors }) => (
                 // To ensure padding on each side of page
                 // wrap in a container
                 // min-vh-100 ensures we use all available screen space

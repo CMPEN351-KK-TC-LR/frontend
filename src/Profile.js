@@ -25,7 +25,7 @@ const Profile = () => {
                 <Card.Body>
                     <Card.Title>{currentUser.name}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{currentUser.email}</Card.Subtitle>
-                    <Button variant="primary" href="/change-password">
+                    <Button variant="primary" href="/reauth">
                         Change Password
                     </Button>
                 </Card.Body>

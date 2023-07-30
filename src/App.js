@@ -14,6 +14,7 @@ import ManageRooms from './ManageRooms';
 import ManageUsers from './ManageUsers';
 import Meetings from './Meetings';
 import ReplyComplaint from './ReplyComplaint';
+import ReauthPage from './ReauthPage';
 
 function App() {
     return (
@@ -31,6 +32,7 @@ function App() {
                 <Route path='/file-complaint' component={FileComplaint}/>
                 {/* Below route is shared from User to Admin */}
                 <Route path='/meetings' component={Meetings}/>
+                <Route path='/reauth' component={ReauthPage}/>
                 {/* Admin routes */}
                 <Route path='/admin-complaints' component={AdminComplaints}/>
                 <Route path='/admin-meetings' component={AdminMeetings}/>
