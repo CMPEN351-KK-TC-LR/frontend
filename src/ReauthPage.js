@@ -2,10 +2,15 @@ import useAuth from "./useAuth";
 import { Container, Form, Button } from 'react-bootstrap'
 import { Formik } from 'formik' // for form validation
 import * as Yup from 'yup'
+import { useHistory } from 'react-router-dom';
+import { useState } from "react";
 
-const ReauthPage = () => {
+const ReauthPage = ({ updateJwt }) => {
     // Check if user is logged in
-    //const { loading, currentUser } = useAuth()
+    const { loading, currentUser } = useAuth()
+    const [ authed, setAuthed ] = useState(false)
+    // Allow redirecting
+    const history = useHistory()
 
     // How to validate the input on front end for registration
     const formSchema = Yup.object({
@@ -21,6 +26,7 @@ const ReauthPage = () => {
                                           // oneOf takes an array of values that this
                                           // field must match against      
     })
+    const jsonDataFormat = 'application/json'
 
     return (
         <Formik
@@ -29,11 +35,46 @@ const ReauthPage = () => {
                 password: '',
                 confirmPassword: ''
             }}
-            onSubmit={console.log}
+            // What to do when form is validated to submit it to back-end
+            onSubmit={async (values) => {
+                try {
+                    fetch('/api/users/auth', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': jsonDataFormat,
+                            'Content-Type': jsonDataFormat,
+                            'x-access-token': currentUser._id
+                        },
+                        // Send password to back-end with current user information
+                        // including their user ID to have backend-check password
+                        body: JSON.stringify(Object.assign(values, currentUser))
+                    })
+                    .then((res) => { // Check return of fetch
+                        if (res.ok) { // Return successfully
+                            return res.json()
+                        }
+                        // Else
+                        throw Error('Unable to authenticate')
+                    })
+                    .then((res) => { // Do something with return from .then above
+                        setAuthed(true) // We authenticated successfully
+                        // Update auth JWT with returned token in header
+                        updateJwt(res.headers.get("x-auth-token"))
+                    })
+                    .catch((e) => { // Handle errors
+                        // Redirect to last page, to fail safe
+                        history.goBack()
+                    })
+                } catch (e) {
+                    // Put an error message at end of form
+
+                }
+                
+            }}
         >
             {({ handleSubmit, handleChange, values, touched, errors }) => (
                 <Form noValidate onSubmit={handleSubmit} className="min-vh-100 d-flex flex-column">
-                    <Container className='w-25'>
+                    <Container id='pw-reauth' className='w-25'>
                         {/* Wrap each form entry item in a Form.Group
                             to ensure we label each form data entry
                             and its individual accesibility features properly */}
