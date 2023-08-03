@@ -15,9 +15,11 @@ import ManageUsers from './ManageUsers';
 import Meetings from './Meetings';
 import ReplyComplaint from './ReplyComplaint';
 import ReauthPage from './ReauthPage';
+import { AuthProvider } from './useAuth';
 
 function App() {
     return (
+        <AuthProvider>
         <BrowserRouter>
             <CustomNavbar />
             <Switch>
@@ -43,7 +45,8 @@ function App() {
                 {/* Redirect to Home if no other paths match */}
                 <Redirect to='/'/>
             </Switch>
-        </BrowserRouter>
+            </BrowserRouter>
+            </AuthProvider>
     );
 }
 

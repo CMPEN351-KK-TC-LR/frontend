@@ -1,8 +1,13 @@
+import { useHistory } from 'react-router-dom'
 import { Container, Form, InputGroup, Button } from 'react-bootstrap'
 import { Formik } from 'formik' // for form validation
 import * as Yup from 'yup'
+import useAuth from './useAuth'
 
 const Login = () => {
+    const history = useHistory();
+    const { login } = useAuth();
+
     // How to validate the input on front end
     const formSchema = Yup.object({
         email: Yup.string()
@@ -14,6 +19,48 @@ const Login = () => {
           .required('Required')
     })
 
+    const handleSubmit = async (values) => {
+        try {
+            // Use fetch to make a POST request
+            const response = await fetch('http://localhost:5000/api/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: values.email,
+                    password: values.password,
+                }),
+            });
+
+            console.log('Login request sent, response:', response);
+
+            // If response status is not 200 it means an error
+            if (!response.ok) {
+                // Extract the JSON from error
+                const errorData = await response.json();
+                // Throw an error with the error data message
+                throw new Error(errorData);
+            }
+
+            // Get the response data (token and user data)
+            const data = await response.json();
+
+            console.log('Response data:', data); // Log the response data
+
+            login(data);
+
+            // Store the token in local storage (or cookies)
+            localStorage.setItem('token', data.token);
+
+            // If login was successful, navigate to the home page
+            history.push('/');
+        } catch (error) {
+            // Log any errors to the console
+            console.error('Failed to login:', error);
+        }
+    };
+
     return (
         <Formik
             validationSchema={formSchema}
@@ -21,7 +68,7 @@ const Login = () => {
                 email: '',
                 password: ''
             }}
-            onSubmit={console.log}
+            onSubmit={handleSubmit}
         >
             {({ handleSubmit, handleChange, values, touched, errors }) => (
                 <Container className="min-vh-100">

@@ -1,6 +1,11 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 
-const useAuth = () => {
+// Create a context
+export const AuthContext = createContext();
+
+export const useAuth = () => useContext(AuthContext);
+
+export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [currentUser, setCurrentUser] = useState(null);
 
@@ -25,7 +30,14 @@ const useAuth = () => {
             });
     }, []);
 
-    return { loading, currentUser };
-}
+    const value = {
+        loading,
+        currentUser,
+        login: (user) => setCurrentUser(user),
+    };
+
+    return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
+};
+
 
 export default useAuth;
