@@ -10,7 +10,7 @@ const loggedInNavbar = () => {
 
 const CustomNavbar = () => {
     // Use the useAuth hook to get the current user
-    const { _loading , currentUser } = useAuth();
+    const { loading , currentUser } = useAuth();
 
     
     return ( 

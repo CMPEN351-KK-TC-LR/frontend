@@ -1,6 +1,7 @@
 import { Container, Form, Button } from 'react-bootstrap'
 import { Formik } from 'formik' // for form validation
 import * as Yup from 'yup'
+import { useHistory } from 'react-router-dom';
 
 const Register = () => {
     // How to validate the input on front end for registration
@@ -51,6 +52,49 @@ const Register = () => {
                                           // field must match against      
     })
 
+    const history = useHistory();
+
+    // Function to take in the form values
+    const handleSubmit = async (values) => {
+        try {
+            console.log('Form is submitting', values);
+            // Use fetch to make a POST request
+            const response = await fetch('http://localhost:5000/api/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: values.email,
+                    name: values.name,
+                    password: values.password,
+                    confirmPassword: values.confirmPassword,
+                    requesterIsAdmin: false, // User will need to be set to an admin by other admin
+                }),
+            });
+
+            // If response status is not 200 it means an error
+            if (!response.ok) {
+                // Extract the JSON from error
+                const errorData = await response.json();
+                // Throw an error with the error data message
+                throw new Error(errorData);
+            }
+
+            // When this point is reached registration is successful
+            const data = await response.json();
+            console.log(data); // Log the response data for now
+
+            // If registration was successful, navigate to the MainMenu page
+            // Use the history object to navigate and pass a success message
+            history.push('/');
+
+        } catch (error) {
+            // Log any errors to the console
+            console.error('Failed to register:', error);
+        }
+    };
+
     return ( 
         <Formik
             validationSchema={formSchema}
@@ -60,7 +104,9 @@ const Register = () => {
                 password: '',
                 confirmPassword: ''
             }}
-            onSubmit={console.log}
+            onSubmit={async (values) => {
+                await handleSubmit(values)
+            }}
         >
             {({ handleSubmit, handleChange, values, errors }) => (
                 // To ensure padding on each side of page
