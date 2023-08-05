@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import useAuth from './useAuth'
+import LandingPage from './LandingPage'
 import MeetingTemplate from "./templates/MeetingTemplate"
 
 const AdminMeetings = () => {
