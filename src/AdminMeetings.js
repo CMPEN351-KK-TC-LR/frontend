@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import useAuth from './useAuth'
+import MeetingTemplate from "./templates/MeetingTemplate"
 
 const AdminMeetings = () => {
     const [meetings, getAllMeetings] = useState(null)
@@ -47,7 +48,7 @@ const AdminMeetings = () => {
         <div className = "adminMeetings">
             <div className = "allMeetings">
                 {meetings && meetings.map((meeting) => (
-                    <RoomTemplate key = {meeting._id} meeting = {meeting} />
+                    <MeetingTemplate key = {meeting._id} meeting = {meeting} />
                 ))}
             </div>
         </div>
