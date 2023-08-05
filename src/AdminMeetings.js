@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Button, Form } from 'react-bootstrap'
 import useAuth from './useAuth'
 import LandingPage from './LandingPage'
 import MeetingTemplate from "./templates/MeetingTemplate"
@@ -52,6 +53,15 @@ const AdminMeetings = () => {
                     <MeetingTemplate key = {meeting._id} meeting = {meeting} />
                 ))}
             </div>
+            <Form onSubmit = {handleFilter}>
+                <Form.Group className = "filterMeetings" controlId = "formTimeSlot">
+                    <Form.Label> Filter Date: </Form.Label>
+                    <Form.Control type = "timeslot" placeholder = "Enter Date" value = {timeslot} onChange = {(e) => handleFilter(e.target.value)} />
+                </Form.Group>
+                <Button variant="primary" type="filter">
+                    Filter Meetings
+                </Button>
+            </Form>
         </div>
     )
 }
