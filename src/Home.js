@@ -20,7 +20,7 @@ const Home = () => {
     }
 
     // If the user is an admin, show the AdminMainMenu
-    if (currentUser.isAdmin) {
+    if (currentUser.admin) {
         return <AdminMainMenu />;
     }
 

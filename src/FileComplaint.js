@@ -10,7 +10,7 @@ const FileComplaint = () => {
     const [email, setEmail] = useState(''); // state for email field
     const [message, setMessage] = useState(''); // state for message field
 
-    const { loading, currentUser } = useAuth();
+    const { currentUser, loading } = useAuth();
     // If there is no user logged in, return the LandingPage component
     if (!currentUser) {
         return <LandingPage />;
@@ -29,9 +29,10 @@ const FileComplaint = () => {
         };
 
         // Make a POST request to the server to create a new complaint
-        const response = await fetch('/api/complaints/create-complaint', { // endpoint for complaints
+        const response = await fetch('http://localhost:5000/api/complaints/create-complaint', { // endpoint for complaints
             method: 'POST', // POST method to create a new complaint
             headers: {
+                'x-access-token': localStorage.getItem('token'),
                 'Content-Type': 'application/json' // specify content type as JSON
             },
             body: JSON.stringify(complaint) // convert complaint object to JSON string
