@@ -5,7 +5,11 @@ import MainMenu from './MainMenu'
 
 const Home = () => {
     // Get current user data
-    const { currentUser } = useAuth();
+    const { currentUser, loading } = useAuth();
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     // Choose which page to return based on
     // if user authenticated and their account level

@@ -1,25 +1,15 @@
 import React from 'react';
 import { Container, Card, Button } from 'react-bootstrap'
-import LandingPage from './LandingPage';
-import useAuth from './useAuth'; 
+import useAuth from './useAuth';
 
 const Profile = () => {
-    // Use the useAuth hook to get the current user and whether the data is loading
-    const { loading, currentUser } = useAuth();
+    const { currentUser, loading } = useAuth();
 
-    // If the data is loading, show a loading message
     if (loading) {
         return <div>Loading...</div>;
     }
 
-    // If there is no user found, show the LandingPage for login or registration
-    if (!currentUser) {
-        return <LandingPage />;
-    }
-
-    // If user data is available, display the user's profile
     return (
-        // Use a Container to center and a card to display the profile information
         <Container className="d-flex justify-content-center">
             <Card style={{ width: '18rem' }}>
                 <Card.Body>

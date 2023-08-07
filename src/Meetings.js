@@ -37,7 +37,7 @@ const Meetings = () => {
         }
 
         fetchMeetings()
-    }, [])
+    }, [currentUser])
 
     const handleSearchSubmit = async (e) => {
         e.preventDefault()
