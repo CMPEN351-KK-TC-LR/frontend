@@ -16,14 +16,14 @@ const AdmiMainMenu = () => {
                         Click the button below to view all scheduled meetings.
                     </p>
                     <Link to='/admin-meetings'>
-                        <Button block>See Meetings</Button>
+                        <Button>See Meetings</Button>
                     </Link>
 
                     <p>
                         Click the button below to view all complaints that have been filed
                     </p>
                     <Link to='/admin-complaints'>
-                        <Button className="mb-3" block>View Complaints</Button>
+                        <Button className="mb-3">View Complaints</Button>
                     </Link>
                 </Col>
             </Row>
