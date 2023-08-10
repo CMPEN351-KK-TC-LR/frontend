@@ -1,7 +1,13 @@
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
 import { Button, Container, Row, Col } from 'react-bootstrap';
 
 const MainMenu = () => {
+    const history = useHistory()
+
+    const handleBtnClick = (path) => {
+        history.push(path)
+    }
+
     return (
         <Container className="mt-5">
             <Row>
@@ -12,19 +18,8 @@ const MainMenu = () => {
 
             <Row className="mt-4">
                 <Col md={{ span: 6, offset: 3 }}>
-                    <p>
-                        Click the button below to view meetings.
-                    </p>
-                    <Link to='/meetings'>
-                        <Button block>See Meetings</Button>
-                    </Link>
-
-                    <p>
-                        Click the button below to view all complaints that have been filed
-                    </p>
-                    <Link to='/file-complaints'>
-                        <Button className="mb-3" block>File Complaint</Button>
-                    </Link>
+                    <Button onClick={() => handleBtnClick('/meetings')}>See Meetings</Button>
+                    <Button className="mb-3" onClick={() => handleBtnClick('/file-complaint')}>File Complaint</Button>
                 </Col>
             </Row>
         </Container>
