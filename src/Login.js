@@ -50,9 +50,6 @@ const Login = () => {
 
             login(data);
 
-            // Store the token in local storage (or cookies)
-            localStorage.setItem('token', data.token);
-
             // If login was successful, navigate to the home page
             history.push('/');
         } catch (error) {
