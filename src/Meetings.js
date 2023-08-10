@@ -12,6 +12,7 @@ const Meetings = () => {
     const [name, setName] = useState('')
     const [time, setTime] = useState('')
     const [room, setRoom] = useState(0)
+    const [creator, setCreator] = useState(null)
 
     const { loading, currentUser } = useAuth()
     // If there is no user logged in, return the LandingPage component
