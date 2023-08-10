@@ -6,8 +6,8 @@ import MeetingTemplate from "./templates/MeetingTemplate"
 
 const Meetings = () => {
 
-    const [meetings, getUserMeetings] = useState(null)
-    const [meeting, getMeeting] = useState(null)
+    const [meetings, setUserMeetings] = useState(null)
+    const [meeting, setMeeting] = useState(null)
 
     const [name, setName] = useState('')
     const [time, setTime] = useState('')
@@ -15,7 +15,11 @@ const Meetings = () => {
     const [creator, setCreator] = useState(null)
 
     const { loading, currentUser } = useAuth()
-    
+    const token = localStorage.getItem('token') // Get local token stored
+    let headers = {
+        'Content-Type': 'application/json', // Make sure requests are sent as JSON
+        'x-access-token': token // JWT set
+    }
 
     useEffect(() => {
         // Need to put conditionals inside useEffect
@@ -25,19 +29,30 @@ const Meetings = () => {
         if (!currentUser) {
             return <LandingPage />
         }
-        const fetchMeetings = async () => {
-            // Get all meetings for current user
-            const response = await fetch('/api/meetings/get-meetings-user', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json' // specify content type as JSON
-                },
-                body: JSON.stringify(currentUser) // convert current user id to JSON string
-            })
-            const json = await response.json()
 
-            if(response.ok){
-                getUserMeetings(json)
+        const fetchMeetings = async () => {
+            // Get token from local storage
+            
+            if (!token) {
+                console.error('No authentication')
+            }
+
+            // Get all meetings for current user
+            let response
+            try {
+                response = await fetch('http://localhost:5000/api/meetings/get-meetings-user', {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(currentUser) // convert current user id to JSON string
+                })
+
+                const json = await response.json()
+
+                if(json.ok){
+                    setUserMeetings(json)
+                }
+            } catch(e) {
+                console.error(e)
             }
         }
 
@@ -47,20 +62,25 @@ const Meetings = () => {
     const handleSearchSubmit = async (e) => {
         e.preventDefault()
 
-        // Make a GET request for a meeting with the entered name
-        const response = await fetch('/api/meetings/get-meeting-name', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json' // specify content type as JSON
-            },
-            body: JSON.stringify(name) // convert meeting name to JSON string
-        })
-        const json = await response.json()
+        let response
+        let json
+        try {
+            // Make a GET request for a meeting with the entered name
+            response = await fetch('/api/meetings/get-meeting-name', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({name: name}) // convert meeting name to JSON string
+            })
+            json = await response.json()
+        } catch(e) {
+            console.error(e)
+        }
+        
             
         // If the response was successful (status code in the range 200-299), reset the form field
         if (response.ok) {
             setName('')
-            getMeeting(json)
+            setMeeting(json)
         }
     }
 
@@ -75,9 +95,7 @@ const Meetings = () => {
         // Make a POST request to the server to create a new meeting
         const response = await fetch('/api/meetings/create-meeting', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json' // specify content type as JSON
-            },
+            headers: headers,
             body: JSON.stringify(meeting) // convert meeting object to JSON string
         })
         
@@ -96,10 +114,8 @@ const Meetings = () => {
         // Make a DELETE request to the server to delete a room
         const response = await fetch('/api/meetings/delete-meeting', {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json' // specify content type as JSON
-            },
-            body: JSON.stringify(name) // convert meeting name to JSON string
+            headers: headers,
+            body: JSON.stringify({name: name}) // convert meeting name to JSON string
         })
             
         // If the response was successful (status code in the range 200-299), reset the form field
@@ -115,7 +131,7 @@ const Meetings = () => {
                     <MeetingTemplate key = {meeting._id} meeting = {meeting} />
                 ))}
             </div>
-            <Form onSearchSubmit = {handleSearchSubmit}>
+            <Form onSubmit={handleSearchSubmit}>
                 <Form.Group className = "meetingSearch" controlId = "formName">
                     <Form.Label> Meeting Name: </Form.Label>
                     <Form.Control type = "name" placeholder = "Enter name" value = {name} onChange = {(e) => setName(e.target.value)} />
@@ -125,7 +141,7 @@ const Meetings = () => {
                     Find Meeting
                 </Button>
             </Form>
-            <Form onAddSubmit = {handleAddSubmit}>
+            <Form onSubmit={handleAddSubmit}>
                 <Form.Group className = "meetingAdd" controlId = "formName">
                     <Form.Label> Meeting Name: </Form.Label>
                     <Form.Control type = "name" placeholder = "Enter name" value = {name} onChange = {(e) => setName(e.target.value)} />
@@ -133,7 +149,7 @@ const Meetings = () => {
 
                 <Form.Group className="meetingAdd" controlId = "formTime">
                     <Form.Label> Enter Time: </Form.Label>
-                    <Form.Control type = "date" placeholder = "Enter meeting date" value = {time} onChange={(e) => setTime(e.target.value)} />
+                    <Form.Control type = "datetime-local" placeholder = "Enter meeting date" value = {time} onChange={(e) => setTime(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group className="meetingAdd" controlId = "formRoom">
@@ -146,7 +162,7 @@ const Meetings = () => {
                 </Button>
             </Form>
 
-            <Form onDeleteSubmit = {handleDeleteSubmit}>
+            <Form onSubmit={handleDeleteSubmit}>
                 <Form.Group className = "meetingDelete" controlId = "formName">
                     <Form.Label> Meeting Name: </Form.Label>
                     <Form.Control type = "name" placeholder = "Enter name" value = {name} onChange = {(e) => setName(e.target.value)} />
