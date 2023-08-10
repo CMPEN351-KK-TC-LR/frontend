@@ -46,7 +46,7 @@ function App() {
                 <Redirect to='/'/>
             </Switch>
             </BrowserRouter>
-            </AuthProvider>
+        </AuthProvider>
     );
 }
 
