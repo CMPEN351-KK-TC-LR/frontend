@@ -10,11 +10,16 @@ const AdminMeetings = () => {
 
     const { loading, currentUser } = useAuth()
     // If there is no user logged in, return the LandingPage component
-    if (!currentUser) {
-        return <LandingPage />
-    }
-
+    
     useEffect(() => {
+        // Need to put conditionals inside useEffect
+        // to ensure we load things the same way each time the page loads
+        //
+        // If there is no user logged in, return the LandingPage component
+        if (!currentUser) {
+            return <LandingPage />
+        }
+
         const fetchMeetings = async () => {
             const response = await fetch('/api/meetings/get-meetings')
             const json = await response.json()
