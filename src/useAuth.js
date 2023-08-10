@@ -39,7 +39,6 @@ export const AuthProvider = ({ children }) => {
                 }
             })
             .then(data => {
-                console.log(data);
                 setCurrentUser(data);
                 setLoading(false);
             })
