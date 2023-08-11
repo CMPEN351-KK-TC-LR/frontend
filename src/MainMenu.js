@@ -18,8 +18,9 @@ const MainMenu = () => {
 
             <Row className="mt-4">
                 <Col md={{ span: 6, offset: 3 }}>
-                    <Button onClick={() => handleBtnClick('/meetings')}>See Meetings</Button>
-                    <Button className="mb-3" onClick={() => handleBtnClick('/file-complaint')}>File Complaint</Button>
+                    <Button className="mb-3 mx-2" onClick={() => handleBtnClick('/meetings')}>Meetings</Button>
+                    <Button className="mb-3 mx-2" onClick={() => handleBtnClick('/profile')}>Profile</Button>
+                    <Button className="mb-3 mx-2" onClick={() => handleBtnClick('/file-complaint')}>File Complaint</Button>
                 </Col>
             </Row>
         </Container>
