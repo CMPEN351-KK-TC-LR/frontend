@@ -13,7 +13,7 @@ const Login = () => {
         email: Yup.string()
           .max(50, 'invalid email')
           // pattern required for valid email
-          .matches(/^[a-zA-Z]+.[a-zA-Z]+@pennstatesoft.com$/)
+          .matches(/^[a-zA-Z1-9]+.[a-zA-Z1-9]+@pennstatesoft.com$/)
           .required('Required'),
         password: Yup.string()
           .required('Required')
@@ -33,8 +33,6 @@ const Login = () => {
                 }),
             });
 
-            console.log('Login request sent, response:', response);
-
             // If response status is not 200 it means an error
             if (!response.ok) {
                 // Extract the JSON from error
@@ -45,8 +43,6 @@ const Login = () => {
 
             // Get the response data (token and user data)
             const data = await response.json();
-
-            console.log('Response data:', data); // Log the response data
 
             login(data);
 
