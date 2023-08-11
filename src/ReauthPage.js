@@ -43,7 +43,7 @@ const ReauthPage = ({ updateJwt }) => {
                         headers: {
                             'Accept': jsonDataFormat,
                             'Content-Type': jsonDataFormat,
-                            'x-access-token': currentUser._id
+                            'x-access-token': localStorage.getItem('token') // get cached token
                         },
                         // Send password to back-end with current user information
                         // including their user ID to have backend-check password
@@ -67,9 +67,9 @@ const ReauthPage = ({ updateJwt }) => {
                     })
                 } catch (e) {
                     // Put an error message at end of form
-
+                    console.error(e)
                 }
-                
+                return { authed }
             }}
         >
             {({ handleSubmit, handleChange, values, touched, errors }) => (
