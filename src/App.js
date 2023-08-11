@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import AdminMeetings from './AdminMeetings';
 import Home from './Home';
 import Login from './Login';
+import Logout from './Logout';
 import Register from './Register';
 import AdminComplaints from './AdminComplaints';
 import Profile from './Profile';
@@ -26,6 +27,7 @@ function App() {
                 {/* Only public routes */}
                 <Route exact path="/" component={Home}/>
                 <Route path="/login" component={Login}/>
+                <Route path="/logout" component={Logout}/>
                 <Route path="/register" component={Register}/>
                 {/* Regular User routes */}
                 <Route path='/profile' component={Profile}/>
